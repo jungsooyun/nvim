@@ -41,12 +41,11 @@ o.cindent = true
 -- turn on line number
 o.title = true
 o.number = true
--- 가져온 세팅인데 괜찮은지 확인해보기
 o.numberwidth = 5
 o.cursorline = true
 
--- cmd('syntax enable')
--- cmd('syntax on')
+vim.cmd[[syntax enable]]
+vim.cmd[[syntax on]]
 
 
 o.mouse = ''
@@ -71,7 +70,3 @@ o.wildignore = '*.bak,*.o,*.e,*~'
 o.termguicolors = true
 o.background = 'dark'
 g.solarized_termtrans = 1
-
--- needed?
-require('lsp')
-require('plugins')
