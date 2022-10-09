@@ -8,11 +8,9 @@ Plug 'lifepillar/vim-solarized8'
 -- Vista
 Plug 'liuchengxu/vista.vim'
 
--- NerdTree
-Plug('scrooloose/nerdtree', { on = 'NERDTreeToggle'})
-
--- how??
--- map <C-n> :NERDTreeToggle<CR>
+-- nvim-tree
+Plug('nvim-tree/nvim-web-devicons')
+Plug('nvim-tree/nvim-tree.lua')
 
 -- Modern C++ syntax highlighting
 Plug 'bfrg/vim-cpp-modern'
@@ -38,3 +36,24 @@ Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 
 Plug.ends()
+
+
+-- nvim-tree
+nvim_tree = require("nvim-tree")
+nvim_tree.setup({
+  sort_by = "case_sensitive",
+  view = {
+    adaptive_size = true,
+    mappings = {
+      list = {
+        { key = "u", action = "dir_up" },
+      },
+    },
+  },
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
