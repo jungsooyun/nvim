@@ -1,0 +1,5 @@
+require('plugins')
+require('settings')
+require('lsp')
+require('autocmd')
+require('nvim-cmp')
