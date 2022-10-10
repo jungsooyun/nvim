@@ -1,3 +1,4 @@
+----------------------------------- OLD Vim Plug
 local Plug = require 'plugins.vimplug'
 
 Plug.begin('~/.local/share/nvim/plugged')
@@ -22,6 +23,7 @@ Plug ('junegunn/fzf.vim',                { commit = 'b31512e2a2d062ee4b6eb388645
 -- nvim env setting
 Plug 'neovim/nvim-lspconfig'
 Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
 
 -- nvim-cmp has a lot of dependencies...
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -31,29 +33,20 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 
--- using completion with vsnip
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
 
 Plug.ends()
 
+-- if plugins updated, we need to call PackerCompile
+vim.cmd([[augroup packer_user_config
+  autocmd!
+  autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+augroup end]])
 
--- nvim-tree
-nvim_tree = require("nvim-tree")
-nvim_tree.setup({
-  sort_by = "case_sensitive",
-  view = {
-    adaptive_size = true,
-    mappings = {
-      list = {
-        { key = "u", action = "dir_up" },
-      },
-    },
-  },
-  renderer = {
-    group_empty = true,
-  },
-  filters = {
-    dotfiles = true,
-  },
-})
+----------------------------------- Packer
+vim.cmd [[packadd packer.nvim]]
+
+return require('packer').startup(function(use)
+  use 'wbthomason/packer.nvim'
+  use 'feline-nvim/feline.nvim'
+end)
+

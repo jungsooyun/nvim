@@ -8,3 +8,4 @@ function map(mode, lhs, rhs, opts)
 end
 
 map('n', '<C-n>', ':NvimTreeToggle<CR>')
+vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', { noremap = true })
