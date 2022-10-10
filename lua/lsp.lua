@@ -39,8 +39,27 @@ local flags = {
     debounce_text_changes = 200,
 }
 
--- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- Setup coq autocomplete
+vim.g.coq_settings = {
+    auto_start = 'shut-up',  -- shup up means quite mode...
+    clients = {
+        lsp = {
+            resolve_timeout = 0.5  -- how much time to wait for LSP
+        }
+    },
+    limits = {
+        completion_auto_timeout = 0.66
+    },
+    match = {
+        max_results = 10
+    },
+    display = {
+        ghost_text = {
+            context = {"", ""}
+        }
+    }
+}
+local coq = require "coq"
 
 
 -- Lua
@@ -76,66 +95,69 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protoco
 
 
 -- C, CPP
-lsp.clangd.setup{
-    flags = flags,
-    capabilities = capabilities,
-    on_attach = on_attach,
-    root_dir = lsp.util.root_pattern(
-      '.clangd',
-      '.clang-tidy',
-      '.clang-format',
-      'compile_commands.json',
-      'compile_flags.txt',
-      'configure.ac',
-      '.git'
-    )
-}
+lsp.clangd.setup(
+    coq.lsp_ensure_capabilities({
+        flags = flags,
+        on_attach = on_attach,
+        root_dir = lsp.util.root_pattern(
+          '.clangd',
+          '.clang-tidy',
+          '.clang-format',
+          'compile_commands.json',
+          'compile_flags.txt',
+          'configure.ac',
+          '.git'
+        )
+    })
+)
 
 -- Python
-lsp.pylsp.setup{
-  flags = flags,
-  capabilities = capabilities,
-  on_attach = on_attach,
-  settings = {
-    pylsp = {
-      plugins = {
-        pycodestyle = {
-          ignore = {'E402', 'E501', 'E731', 'E741'},
-          maxLineLength = 120
+lsp.pylsp.setup(
+  coq.lsp_ensure_capabilities({
+      flags = flags,
+      on_attach = on_attach,
+      settings = {
+        pylsp = {
+          plugins = {
+            pycodestyle = {
+              ignore = {'E402', 'E501', 'E731', 'E741'},
+              maxLineLength = 120
+            }
+          }
         }
       }
-    }
-  }
-}
+  })
+)
 
 -- Rust
-lsp.rust_analyzer.setup({
-    flags = flags,
-    capabilities = capabilities,
-    on_attach = on_attach,
-    root_dir = lsp.util.root_pattern(
-      'Cargo.toml',
-      'rust-project.json'
-    ),
-    settings = {
-        ['rust-analyzer'] = {
-            cargo = {
-                allFeatures = true,
-            },
-            checkOnSave = {
-                allFeatures = true,
-                command = 'clippy',
-            },
-            procMacro = {
-                ignored = {
-                    ['async-trait'] = { 'async_trait' },
-                    ['napi-derive'] = { 'napi' },
-                    ['async-recursion'] = { 'async_recursion' },
+lsp.rust_analyzer.setup(
+    coq.lsp_ensure_capabilities({
+        flags = flags,
+        on_attach = on_attach,
+        root_dir = lsp.util.root_pattern(
+          'Cargo.toml',
+          'rust-project.json'
+        ),
+        settings = {
+            ['rust-analyzer'] = {
+                cargo = {
+                    allFeatures = true,
+                },
+                checkOnSave = {
+                    allFeatures = true,
+                    command = 'clippy',
+                },
+                procMacro = {
+                    ignored = {
+                        ['async-trait'] = { 'async_trait' },
+                        ['napi-derive'] = { 'napi' },
+                        ['async-recursion'] = { 'async_recursion' },
+                    },
                 },
             },
         },
-    },
-})
+    })
+)
 
 ---List of the LSP server that don't need special configuration
 local servers = {
@@ -151,9 +173,10 @@ local servers = {
 }
 
 for _, server in ipairs(servers) do
-    lsp[server].setup({
-        flags = flags,
-        capabilities = capabilities,
-        on_attach = on_attach,
-    })
+    lsp[server].setup(
+        coq.lsp_ensure_capabilities({
+            flags = flags,
+            on_attach = on_attach,
+        })
+    )
 end

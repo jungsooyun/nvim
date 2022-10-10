@@ -23,15 +23,21 @@ Plug ('junegunn/fzf.vim',                { commit = 'b31512e2a2d062ee4b6eb388645
 -- nvim env setting
 Plug 'neovim/nvim-lspconfig'
 Plug 'L3MON4D3/LuaSnip'
-Plug 'saadparwaiz1/cmp_luasnip'
+-- Plug 'saadparwaiz1/cmp_luasnip'
 
--- nvim-cmp has a lot of dependencies...
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+-- coq nvim?!
+Plug ('ms-jpq/coq_nvim',                 { branch = 'coq' })
+-- 9000+ snippets
+Plug ('ms-jpq/coq.artifacts',            { branch = 'artifacts' })
+Plug ('ms-jpq/coq.thirdparty',           { branch = '3p' })
+
+-- -- nvim-cmp has a lot of dependencies...
+-- Plug 'hrsh7th/cmp-nvim-lsp'
+-- Plug 'hrsh7th/cmp-buffer'
+-- Plug 'hrsh7th/cmp-path'
+-- Plug 'hrsh7th/cmp-cmdline'
+-- Plug 'hrsh7th/nvim-cmp'
+-- Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 
 
 Plug.ends()
