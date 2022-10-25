@@ -21,7 +21,6 @@ Plug ('junegunn/fzf',                    { tag = '0.18.0', dir = '~/.fzf', ['do'
 Plug ('junegunn/fzf.vim',                { commit = 'b31512e2a2d062ee4b6eb38864594c83f1ad2c2f' })
 
 -- nvim env setting
-Plug 'neovim/nvim-lspconfig'
 Plug 'L3MON4D3/LuaSnip'
 -- Plug 'saadparwaiz1/cmp_luasnip'
 
@@ -31,28 +30,34 @@ Plug ('ms-jpq/coq_nvim',                 { branch = 'coq' })
 Plug ('ms-jpq/coq.artifacts',            { branch = 'artifacts' })
 Plug ('ms-jpq/coq.thirdparty',           { branch = '3p' })
 
--- -- nvim-cmp has a lot of dependencies...
--- Plug 'hrsh7th/cmp-nvim-lsp'
--- Plug 'hrsh7th/cmp-buffer'
--- Plug 'hrsh7th/cmp-path'
--- Plug 'hrsh7th/cmp-cmdline'
--- Plug 'hrsh7th/nvim-cmp'
--- Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
-
 
 Plug.ends()
 
+----------------------------------- Packer
 -- if plugins updated, we need to call PackerCompile
 vim.cmd([[augroup packer_user_config
   autocmd!
   autocmd BufWritePost plugins.lua source <afile> | PackerCompile
 augroup end]])
 
------------------------------------ Packer
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
+  -- package manager itself
   use 'wbthomason/packer.nvim'
+  -- collection of common configurations for the nvim lsp
+  use 'neovim/nvim-lspconfig'
+  -- nvim airline (statusline)
   use 'feline-nvim/feline.nvim'
+  -- visualize lsp progress
+  use({
+    'j-hui/fidget.nvim',
+    config = function()
+      require('fidget').setup()
+    end
+  })
+  use('simrat39/rust-tools.nvim')
+-- git diff view
+  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
 end)
 

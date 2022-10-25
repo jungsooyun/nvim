@@ -53,6 +53,8 @@ o.mouse = ''
 -- diagnostics appear/become resolved.
 o.signcolumn = 'auto'
 
+-- completeopt (:help completeopt)
+o.completeopt = "menuone,noinsert,noselect"
 
 
 -- --------------------------------------------------------------------------------

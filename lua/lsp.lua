@@ -119,9 +119,14 @@ lsp.pylsp.setup(
       settings = {
         pylsp = {
           plugins = {
+            -- flake8? hmm...
             pycodestyle = {
               ignore = {'E402', 'E501', 'E731', 'E741'},
               maxLineLength = 120
+            },
+            pylsp_mypy = {
+              live_mode = true,
+              strict = true
             }
           }
         }
@@ -138,6 +143,17 @@ lsp.rust_analyzer.setup(
           'Cargo.toml',
           'rust-project.json'
         ),
+        tools = {
+            runnables = {
+                use_telescope = true,
+            },
+            inlay_hints = {
+                auto = true,
+                show_parameter_hints = false,
+                parameter_hints_prefix = "",
+                other_hints_prefix = "",
+            }
+        },
         settings = {
             ['rust-analyzer'] = {
                 cargo = {
