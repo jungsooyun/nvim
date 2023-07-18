@@ -6,9 +6,6 @@ Plug.begin('~/.local/share/nvim/plugged')
 -- Theme
 Plug 'lifepillar/vim-solarized8'
 
--- Vista
-Plug 'liuchengxu/vista.vim'
-
 -- nvim-tree
 Plug('nvim-tree/nvim-web-devicons')
 Plug('nvim-tree/nvim-tree.lua')
@@ -49,6 +46,8 @@ return require('packer').startup(function(use)
   use 'neovim/nvim-lspconfig'
   -- nvim airline (statusline)
   use 'feline-nvim/feline.nvim'
+  -- icon!
+  use 'nvim-tree/nvim-web-devicons'
   -- visualize lsp progress
   use({
     'j-hui/fidget.nvim',

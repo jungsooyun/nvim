@@ -44,7 +44,7 @@ vim.g.coq_settings = {
     auto_start = 'shut-up',  -- shup up means quite mode...
     clients = {
         lsp = {
-            resolve_timeout = 0.5  -- how much time to wait for LSP
+            resolve_timeout = 1  -- how much time to wait for LSP
         }
     },
     limits = {
@@ -126,7 +126,7 @@ lsp.pylsp.setup(
             },
             pylsp_mypy = {
               live_mode = true,
-              strict = true
+              strict = false
             }
           }
         }
@@ -175,6 +175,14 @@ lsp.rust_analyzer.setup(
     })
 )
 
+-- Bash
+lsp.bashls.setup(
+    coq.lsp_ensure_capabilities({
+        flags = flags,
+        on_attach = on_attach,
+        root_dir = lsp.util.find_git_ancestor
+    })
+)
 ---List of the LSP server that don't need special configuration
 local servers = {
     'zls', -- Zig
@@ -184,7 +192,6 @@ local servers = {
     'cssls', -- CSS
     'jsonls', -- Json
     'yamlls', -- YAML
-    'emmet_ls', -- emmet-ls
     -- 'terraformls', -- Terraform
 }
 
