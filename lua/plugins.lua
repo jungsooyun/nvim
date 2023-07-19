@@ -56,7 +56,13 @@ return require('packer').startup(function(use)
     end
   })
   use('simrat39/rust-tools.nvim')
--- git diff view
+  -- git diff view
   use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+  -- markdown preview
+  use({
+      'iamcco/markdown-preview.nvim',
+      run = function() vim.fn["mkdp#util#install"]() end,
+  })
+
 end)
 
