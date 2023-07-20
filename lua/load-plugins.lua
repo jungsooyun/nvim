@@ -8,7 +8,6 @@ local function on_attach(bufnr)
 
 
   -- Default mappings. Feel free to modify or remove as you wish.
-  --
   -- BEGIN_DEFAULT_ON_ATTACH
   vim.keymap.set('n', '<C-]>', api.tree.change_root_to_node,          opts('CD'))
   vim.keymap.set('n', '<C-e>', api.node.open.replace_tree_buffer,     opts('Open: In Place'))
@@ -76,7 +75,6 @@ end
 
 nvim_tree = require("nvim-tree")
 nvim_tree.setup({
-  on_attach = on_attach,
   sort_by = "case_sensitive",
   view = {
     adaptive_size = true,

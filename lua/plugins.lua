@@ -6,14 +6,10 @@ Plug.begin('~/.local/share/nvim/plugged')
 -- Theme
 Plug 'lifepillar/vim-solarized8'
 
--- nvim-tree
-Plug('nvim-tree/nvim-web-devicons')
-Plug('nvim-tree/nvim-tree.lua')
-
 -- Modern C++ syntax highlighting
 Plug 'bfrg/vim-cpp-modern'
 
-Plug ('ntpeters/vim-better-whitespace',  { commit = '8cf4b2175dd61416c2fe7d3234324a6c59d678de' })
+-- Plug ('ntpeters/vim-better-whitespace',  { commit = '8cf4b2175dd61416c2fe7d3234324a6c59d678de' })
 Plug ('junegunn/fzf',                    { tag = '0.18.0', dir = '~/.fzf', ['do'] = vim.fn['fzf#install']})
 Plug ('junegunn/fzf.vim',                { commit = 'b31512e2a2d062ee4b6eb38864594c83f1ad2c2f' })
 
@@ -26,7 +22,6 @@ Plug ('ms-jpq/coq_nvim',                 { branch = 'coq' })
 -- 9000+ snippets
 Plug ('ms-jpq/coq.artifacts',            { branch = 'artifacts' })
 Plug ('ms-jpq/coq.thirdparty',           { branch = '3p' })
-
 
 Plug.ends()
 
@@ -46,7 +41,8 @@ return require('packer').startup(function(use)
   use 'neovim/nvim-lspconfig'
   -- nvim airline (statusline)
   use 'feline-nvim/feline.nvim'
-  -- icon!
+  -- icon! and nvim - tree
+  use 'nvim-tree/nvim-tree.lua'
   use 'nvim-tree/nvim-web-devicons'
   -- visualize lsp progress
   use({
@@ -63,6 +59,18 @@ return require('packer').startup(function(use)
       'iamcco/markdown-preview.nvim',
       run = function() vim.fn["mkdp#util#install"]() end,
   })
+  -- octo for PR review
+  use {
+    'pwntester/octo.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'nvim-tree/nvim-web-devicons',
+    },
+    config = function ()
+      require"octo".setup()
+    end
+}
 
 end)
 
