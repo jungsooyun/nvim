@@ -58,7 +58,7 @@ o.mouse = ''
 o.signcolumn = 'auto'
 
 -- completeopt (:help completeopt)
-o.completeopt = "menuone,noinsert,noselect"
+o.completeopt = "menu,menuone,noinsert,noselect"
 
 
 -- --------------------------------------------------------------------------------
