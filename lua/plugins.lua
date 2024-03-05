@@ -15,13 +15,10 @@ Plug ('junegunn/fzf.vim',                { commit = 'b31512e2a2d062ee4b6eb388645
 
 -- nvim env setting
 Plug 'L3MON4D3/LuaSnip'
--- Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'saadparwaiz1/cmp_luasnip'
 
--- coq nvim?!
-Plug ('ms-jpq/coq_nvim',                 { branch = 'coq' })
--- 9000+ snippets
-Plug ('ms-jpq/coq.artifacts',            { branch = 'artifacts' })
-Plug ('ms-jpq/coq.thirdparty',           { branch = '3p' })
+-- helm ls setting
+Plug 'towolf/vim-helm'
 
 Plug.ends()
 
@@ -39,6 +36,11 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   -- collection of common configurations for the nvim lsp
   use 'neovim/nvim-lspconfig'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/cmp-cmdline'
+  use 'hrsh7th/nvim-cmp'
   -- nvim airline (statusline)
   use 'feline-nvim/feline.nvim'
   -- icon! and nvim - tree
@@ -70,7 +72,7 @@ return require('packer').startup(function(use)
     config = function ()
       require"octo".setup()
     end
-}
+  }
 
 end)
 
