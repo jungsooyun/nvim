@@ -37,6 +37,7 @@ end
 
 ---Common perf related flags for all the LSP servers
 local lsp = require('lspconfig')
+local configs = require('lspconfig.configs')
 local flags = {
     allow_incremental_sync = true,
     debounce_text_changes = 200,
@@ -251,6 +252,38 @@ lsp.bashls.setup(
       root_dir = lsp.util.find_git_ancestor
     }
 )
+
+-- Helm
+if not configs.helm_ls then
+  configs.helm_ls = {
+    default_config = {
+      cmd = {"helm_ls", "serve"},
+      filetypes = {'helm'},
+      root_dir = function(fname)
+        return lsp.util.root_pattern('Chart.yaml')(fname)
+      end,
+    },
+  }
+end
+
+-- Solidity
+lsp.solidity.setup(
+    {
+      cmd = { 'nomicfoundation-solidity-language-server', '--stdio' },
+      filetypes = { 'solidity' },
+      root_dir = lsp.util.root_pattern(".git", "hardhat.config.*"),
+      capabilities = capabilities,
+      single_file_support = true,
+      flags = flags,
+      on_attach = on_attach,
+    }
+)
+
+lsp.helm_ls.setup {
+  filetypes = {"helm"},
+  cmd = {"helm_ls", "serve"},
+}
+
 ---List of the LSP server that don't need special configuration
 local servers = {
     'zls', -- Zig
@@ -259,7 +292,7 @@ local servers = {
     'html', -- HTML
     'cssls', -- CSS
     'jsonls', -- Json
-    'yamlls', -- YAML
+    -- 'yamlls', -- YAML  << temporarily disabled since crash with helm
     -- 'terraformls', -- Terraform
 }
 
