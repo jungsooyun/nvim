@@ -20,6 +20,9 @@ Plug 'saadparwaiz1/cmp_luasnip'
 -- helm ls setting
 Plug 'towolf/vim-helm'
 
+-- automatic IME switcher
+Plug ('simnalamburt/vim-tiny-ime', { commit = 'ca73c64921c3a9f28662909292a40782ea86f3ab', ['do'] = './build' })
+
 Plug.ends()
 
 ----------------------------------- Packer
